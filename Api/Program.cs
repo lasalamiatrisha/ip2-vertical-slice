@@ -19,6 +19,8 @@ using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using Application.Features.Courses.UpdateCourse;
 using Application.Features.Courses.DeleteCourse;
+using Application.Abstractions;
+using Infrastructure.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +43,10 @@ builder.Services.AddScoped<IQueryHandler<GetAdmissionByIdQuery, Result<GetAdmiss
 builder.Services.AddScoped<IQueryHandler<GetAllAdmissionsQuery, Result<GetAllAdmissionsResponse>>, GetAllAdmissionsQueryHandler>();
 builder.Services.AddScoped<ICommandHandler<UpdateCourseCommand, Result<UpdateCourseResponse>>, UpdateCourseCommandHandler>();
 builder.Services.AddScoped<ICommandHandler<DeleteCourseCommand, Result>,DeleteCourseCommandHandler>();
+builder.Services.AddScoped<IPasswordHasher, Infrastructure.Authentication.PasswordHasher>();
+
 // API
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi(options =>
 {
